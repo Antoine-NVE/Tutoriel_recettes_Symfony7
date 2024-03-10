@@ -12,6 +12,6 @@ class HomeController extends AbstractController
     #[Route("/", name: "home")]
     public function index(Request $request): Response
     {
-        return new Response("Bonjour " . $request->query->get("name", "inconnu"));
+        return $this->render("home/index.html.twig");
     }
 }
