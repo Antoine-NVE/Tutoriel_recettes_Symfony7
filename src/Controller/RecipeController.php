@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Recipe;
 use App\Form\RecipeType;
 use App\Repository\RecipeRepository;
-use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class RecipeController extends AbstractController
 {
     #[Route('/recette', name: 'recipe.index', requirements: ["id" => "\d+", "slug" => "[a-z0-9-]+"])]
-    public function index(Request $request, RecipeRepository $recipeRepository): Response
+    public function index(RecipeRepository $recipeRepository): Response
     {
         $recipes = $recipeRepository->findWithDurationLowerThan(10);
 
