@@ -11,18 +11,21 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\String\Slugger\AsciiSlugger;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 class RecipeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
+            ->add('title', options: [
+                'empty_data' => ''
+            ])
             ->add('slug', options: [
                 'required' => false
             ])
-            ->add('content')
+            ->add('content', options: [
+                'empty_data' => ''
+            ])
             ->add('duration')
             ->add('save', SubmitType::class, [
                 'label' => "Envoyer"
