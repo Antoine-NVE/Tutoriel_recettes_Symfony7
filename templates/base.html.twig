@@ -26,14 +26,19 @@
                         <a href="{{ path('home') }}" class="nav-link {{ app.current_route == 'home' ? 'active' : ''
                             }}">Accueil</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ path('recipe.index') }}" class="nav-link {{ app.current_route starts with 'recipe.' ? 'active' : ''
-                            }}">Recettes</a>
-                    </li>
                 </ul>
             </div>
         </div>
     </nav>
+    {% if app.user and app.user.isVerified == false %}
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="alert-message">
+            <strong>Votre compte n'est pas activé</strong>, <a href="{{ path('app_resend_verify_email') }}">renvoyer le lien
+                d'activation</a>
+        </div>
+    </div>
+    {% endif %}
     <div class="container my-4">
         {% include "partials/flash.html.twig" %}
         {% block body %}{% endblock %}
