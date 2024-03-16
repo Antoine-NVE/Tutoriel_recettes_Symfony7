@@ -12,18 +12,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 #[Route('admin/recettes', name: 'admin.recipe.')]
 #[IsGranted('ROLE_ADMIN')]
 class RecipeController extends AbstractController
 {
     #[Route('/', name: 'index', requirements: ["id" => "\d+", "slug" => "[a-z0-9-]+"])]
-    public function index(RecipeRepository $recipeRepository): Response
+    public function index(RecipeRepository $recipeRepository, Request $request): Response
     {
-        $recipes = $recipeRepository->findWithDurationLowerThan(10);
+        $page = $request->query->getInt('page', 1);
+        $recipes = $recipeRepository->paginateRecipes($page);
         return $this->render('admin/recipe/index.html.twig', [
             'recipes' => $recipes
         ]);
