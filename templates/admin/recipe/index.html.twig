@@ -6,6 +6,11 @@
   <p>
     <a class="btn btn-primary btn-sm" href="{{ path('admin.recipe.create') }}">Créer une recette</a>
   </p>
+
+  <div id="flash">
+    
+  </div>
+
   <table class="table">
     <thead>
       <tr>
@@ -18,10 +23,12 @@
     <tbody>
 
       {% for recipe in recipes %}
-        <tr>
+        <tr id="row_recipe_{{ recipe.id }}">
           <td>{{ recipe.id }}</td>
           <td>
-            <a href="{{ path('admin.recipe.edit', {id: recipe.id}) }}">{{ recipe.title }}</a>
+            <turbo-frame id="recipe_{{ recipe.id }}">
+              <a href="{{ path('admin.recipe.edit', {id: recipe.id}) }}">{{ recipe.title }}</a>
+            </turbo-frame>
           </td>
           <td>{{ recipe.category.name | default('') }}</td>
           <td>

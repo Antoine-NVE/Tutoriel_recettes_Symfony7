@@ -32,7 +32,7 @@ class RecipeType extends AbstractType
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
-                'expanded' => true
+                'autocomplete' => true
             ])
             ->add('content', options: [
                 'empty_data' => ''

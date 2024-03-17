@@ -1,12 +1,14 @@
 {% extends 'admin/admin.html.twig' %}
 
-{% block title %}Recette : {{ recipe.title }}{% endblock
+{% block title %}Recette :
+  {{ recipe.title }}
+{% endblock
+ %}
+{% block body %}
+  <h1>{{ recipe.title}}</h1>
 
-%} {% block body %}
-<h1>{{ recipe.title}}</h1>
-
-<img src="{{ vich_uploader_asset(recipe, 'thumbnailFile') }}" alt="">
-
-{{ form(form) }}
-
-{% endblock %}
+  <img src="{{ vich_uploader_asset(recipe, 'thumbnailFile') }}" alt="">
+  <turbo-frame id="recipe_{{ recipe.id }}">
+    {{ form(form, {action: path('admin.recipe.edit', {id: recipe.id}) }) }}
+    </turbo-frame>
+  {% endblock %}
